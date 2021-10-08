@@ -1,11 +1,24 @@
-var apiKey = "7c5b99b6cf3d81cc560c1abaf51f3da7"
-var searchForm =  document.querySelector(".searchForm").value
-var search ="london"
+var apiKey = "7c5b99b6cf3d81cc560c1abaf51f3da7";
+var searchForm = document.querySelector(".searchForm");
+var search = document.querySelector("#location");
+var pastSearch = [];
 
-console.log(searchForm);
+if (JSON.parse(localStorage.getItem("pastSearch")) !== null) {
+    pastSearch = JSON.parse(localStorage.getItem("pastSearch"));
+}
+function submit() {
+    event.preventDefault();
+    if (pastSearch.indexOf(search.value) === -1) {
+        pastSearch.push(search.value);
+        localStorage.setItem("pastSearch", JSON.stringify(pastSearch));
+    }
+}
+
+searchForm.addEventListener("submit", submit);
+
 
 // fetch("https://api.openweathermap.org/data/2.5/weather?q="+search+"&units=imperial&appid="+apiKey , {
-  
+
 
 // })
 // .then(function (response) {
@@ -36,3 +49,4 @@ console.log(searchForm);
 //     //   object 
 //     console.log(data);
 //   });
+
